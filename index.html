@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine 💖</title>
+
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      position: relative;
+      width: 320px;
+      overflow: hidden;
+    }
+
+    .kitty {
+      width: 220px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      color: #ff4d6d;
+      font-size: 22px;
+      margin-bottom: 25px;
+    }
+
+    button {
+      padding: 12px 22px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    #yes {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #no {
+      background-color: #ccc;
+      position: absolute;
+    }
+
+    .emojis {
+      font-size: 36px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .message {
+      font-size: 24px;
+      color: #ff4d6d;
+      margin-top: 15px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <img
+  src="https://placekitten.com/300/300"
+  alt="Cute Kitty"
+  class="kitty"
+/>
+
+
+    <h1>Manya, will you be my Valentine? 💖</h1>
+
+    <button id="yes">Yes 💘</button>
+    <button id="no">No 🙈</button>
+
+    <div class="emojis" id="emojis">
+      😍🥰💖🎉
+    </div>
+
+    <div class="message" id="message">
+      I knew you would say yes 😘
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const emojis = document.getElementById("emojis");
+    const message = document.getElementById("message");
+    const card = document.querySelector(".card");
+
+    let noScale = 1;
+    let yesScale = 1;
+
+    function moveNo() {
+      const rect = card.getBoundingClientRect();
+
+      const maxX = rect.width - noBtn.offsetWidth;
+      const maxY = rect.height - noBtn.offsetHeight;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      // Shrink No
+      noScale -= 0.08;
+      if (noScale < 0.3) noScale = 0.3;
+      noBtn.style.transform = `scale(${noScale})`;
+
+      // Grow Yes
+      yesScale += 0.1;
+      yesBtn.style.transform = `scale(${yesScale})`;
+
+      // Mobile vibration
+      if (navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+    }
+
+    noBtn.addEventListener("mouseover", moveNo);
+    noBtn.addEventListener("touchstart", moveNo);
+
+    yesBtn.addEventListener("click", () => {
+      emojis.style.display = "block";
+      message.style.display = "block";
+
+      if (navigator.vibrate) {
+        navigator.vibrate([100, 50, 100]);
+      }
+    });
+  </script>
+
+</body>
+</html>
